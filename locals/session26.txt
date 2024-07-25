@@ -1,0 +1,5 @@
+locals
+
+locals is just like variable with extra capabilities
+
+you can keep functions and expression inside locals and can use them whenever required
