@@ -1,0 +1,138 @@
+started abt variables,
+1. created a folder for variables and in this folder again created three .tf files
+
+provider {
+  remains same as before or else copy it from the google
+}
+
+in the ec2.tf block
+ we have same as in the previous code expect the ingress , egress and tags
+ resource "aws_instance" "name" {
+  ami                    = var.ami.id #devops-practice
+  instance_type          = "t3.micro"
+  #vpc_security_group_ids = [aws_security_group.roboshop-all.id] # this means list
+
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+
+run terraform init and terraform plan,
+we will error saying that var.ami.id is declared 
+
+now declare the variables in variables.tf file 
+
+variable "ami_id" {
+  type    = string
+  default = "ami-0b4f379183e5706b9"
+}
+
+variable "instance_type" {
+  default = "t2.micro"
+}
+
+variable "tags" {
+  type = map(any)
+  default = {
+    Name        = "Hello Terraform"
+    Project     = "roboshop"
+    Environment = "DEV"
+    Component   = "web"
+    Terraform   = "true"
+  }
+}
+
+variable "sg-name" {
+  type = string
+  default = "roboshop-all"
+}
+
+now run terraform init and terraform plan
+
+and now create a separate file sg.tf
+and add
+resource "aws_security_group" "roboshop-all" { #this is terraform name, for terraform reference only
+  name        = var.sg-name                    # this is for AWS
+  description = var.sg-description
+  #vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description = "Allow All ports"
+    from_port   = var.inbound-from-port # 0 means all ports
+    to_port     = 0
+    protocol    = "tcp"
+    cidr_blocks = var.cidr_blocks
+    #ipv6_cidr_blocks = [aws_vpc.main.ipv6_cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    #ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "roboshop-all-aws"
+  }
+}
+
+and variable 
+variable "sg-name" {
+  type = string
+  default = "roboshop-all"
+}
+
+variable "sg-description" {
+  type = string
+  default = "Allow TLS inbound traffic"
+}
+
+variable "inbound-from-port" {
+  #type = string
+  default = 0
+}
+
+variable "cidr_blocks" {
+  type    = list(any)
+  default = ["0.0.0.0/0"]
+}
+
+-------> Now we will how to over ride default values in variables
+variable "ami_id" {
+  type    = string
+  default = "ami-0b4f379183e5706b9"
+}
+just comment the  default value in this block and run terraform plan command
+
+terraform will ask the user input for the ami id
+
+For this kind of situation we have terraform.tfvar file will used
+
+in this we have 
+instance_type = "t3.small"
+
+just run the terraform plan and observe the output..
+NOTE: t2.micro will be overridden by t3.small
+
+we can give through command line also
+
+terraform plan -var="instance_type=t3.medium"
+
+Terraform will automatically pick terraform.tfvars file
+
+But if you want to have a custom .tfvars, this can also possible
+
+Create a file with .tfvars extension ( here roboshop.tfvars)
+in this file add 
+instance_type="t2.large"
+
+Now run terraform plan -var-file="roboshop.tfvars"
+observe the output
+
+we set the Environment variables
+
+
+Output block is used to print the attributes of the instance in the cmd
+
