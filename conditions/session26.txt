@@ -1,0 +1,16 @@
+if (expression){
+  if true this will run
+}
+
+if (expression){
+  if true this will run
+} else {
+  if false this will run
+}
+
+expression ? "if true this will run" : "if false this will run"
+
+Terraform follow above syntax 
+
+
+execute commands and observe the output
