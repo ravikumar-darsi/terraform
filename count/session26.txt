@@ -1,0 +1,9 @@
+There are two types of loops
+1. count based loop 
+2. for each loop
+
+we need to create n number of instance for our roboshop project
+we cannot repeat the code for creation of all instances
+
+create a provider.tf and count.tf and also variables.tf
+
