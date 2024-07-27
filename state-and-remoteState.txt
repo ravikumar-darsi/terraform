@@ -1,0 +1,12 @@
+State and Remote State:
+----------------------
+whatever we write Terraform should create --> declarative
+
+declarative = desired State
+current state =  terraform.tfstate
+
+desired state = current state
+
+terraform will check the current state, if the current state is equal to desired state then it will
+not take any action.
+
