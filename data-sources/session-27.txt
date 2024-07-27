@@ -1,0 +1,14 @@
+data sources
+
+The data in the any providers (aws, azure, gcp..) changes dynamically
+
+Data source is used to query the data dynamically from the providers
+
+Let's take an example
+
+take an ece-instance's ami id and get all the info
+
+if any changes pacthes happend, the ami-id changes regularly
+
+to catch or fetch the change in the ami-id, we can make use of data-source
+
