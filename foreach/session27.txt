@@ -1,0 +1,10 @@
+for each loop
+
+count based loop generally used for to iterate the list 
+where Foreach loops is used for to iterate Map
+
+
+we have another type of loop that is dynamic loop
+
+
+
