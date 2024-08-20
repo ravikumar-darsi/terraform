@@ -18,5 +18,5 @@ variable "zone_id" {
 }
 
 variable "domain_name" {
-  default = "sub.daws67s.online"
+  default = "daws67s.online"
 }
