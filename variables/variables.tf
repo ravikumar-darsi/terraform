@@ -1,4 +1,4 @@
-# 1. Command line
+# 1. Command line terraform plan -var="instance_type=t3.medium"
 # 2. -var-file=""
 # 3. terraform.tfvars
 # 4. Env variables
